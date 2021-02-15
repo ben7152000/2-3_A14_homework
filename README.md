@@ -1,4 +1,4 @@
-# 記帳本 (Expense Tracker)
+# 記帳本 (Url-Shortener)
 
 ## 環境建置與需求 (Prerequisites)
 1. Node.js : v14.15.4
