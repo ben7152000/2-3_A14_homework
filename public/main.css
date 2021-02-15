@@ -1,0 +1,165 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;700;900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #f7f7f7;
+  color: #74879C;
+}
+
+.main {
+  text-align: center;
+  border-radius: 30px;
+}
+
+.main .title {
+  font-size: 50px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin: 20px auto 50px;
+  border-bottom: 4px solid #74879C;
+}
+
+.main .logo {
+  font-size: 100px;
+  font-weight: 900;
+  margin: 50px auto;
+}
+
+.home {
+  text-align: center;
+}
+
+.home .input {
+  width: 300px;
+  height: 40px;
+  border: none;
+  margin: 20px auto;
+  padding: 0 10px;
+  background-color: #eee;
+  border-radius: 10px;
+  font-size: 16px;
+  letter-spacing: 1px;
+  -webkit-transition: background-color .5s ease-in-out;
+  transition: background-color .5s ease-in-out;
+  cursor: pointer;
+}
+
+.home .input:hover {
+  background-color: #ccc;
+}
+
+.home .input:focus {
+  border: none;
+  outline: none;
+}
+
+.home .btn {
+  display: block;
+  margin: 20px auto;
+  width: 200px;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  -webkit-transition: background-color .5s ease-in-out, color .5s ease-in-out;
+  transition: background-color .5s ease-in-out, color .5s ease-in-out;
+}
+
+.home .btn:hover {
+  background-color: #74879C;
+  color: #fff;
+}
+
+.home .btn:focus {
+  border: none;
+  outline: none;
+}
+
+.generate {
+  text-align: center;
+}
+
+.generate .desc {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin: 10px auto;
+}
+
+.generate .link {
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: .3px;
+  margin: 10px auto;
+}
+
+.generate .link::after {
+  content: '';
+  display: block;
+  background-color: blue;
+  margin: 10px auto 0px;
+  width: 0;
+  height: 2px;
+  -webkit-transition: width .3s ease-in-out;
+  transition: width .3s ease-in-out;
+}
+
+.generate .link:hover::after {
+  width: 300px;
+}
+
+.generate .btn {
+  margin: 40px auto;
+}
+
+.generate .btn button,
+.generate .btn a {
+  display: inline-block;
+  width: 150px;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  color: #000;
+  background-color: #ccc;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 40px;
+  letter-spacing: 1px;
+  -webkit-transition: background-color .5s ease-in-out, color .5s ease-in-out;
+  transition: background-color .5s ease-in-out, color .5s ease-in-out;
+  margin: auto 10px;
+}
+
+.generate .btn button:hover,
+.generate .btn a:hover {
+  background-color: #74879C;
+  color: #fff;
+}
+
+.generate .btn button:focus,
+.generate .btn a:focus {
+  border: none;
+  outline: none;
+}
+/*# sourceMappingURL=main.css.map */
