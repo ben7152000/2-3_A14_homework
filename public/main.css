@@ -23,6 +23,10 @@ body {
   color: #74879C;
 }
 
+a {
+  text-decoration: none;
+}
+
 .main {
   text-align: center;
   border-radius: 30px;
