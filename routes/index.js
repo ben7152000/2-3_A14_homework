@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
 
 router.post('/', async (req, res) => {
   const url = req.body.url
-  const baseUrl = process.env.NODE_ENV ? 'https://blooming-taiga-19733.herokuapp.com/' : 'localhost:3000'
+  const baseUrl = process.env.NODE_ENV ? 'https://blooming-taiga-19733.herokuapp.com' : 'localhost:3000'
   let newUrl
 
   // 比對網址格式是否正確 否則回傳錯誤
