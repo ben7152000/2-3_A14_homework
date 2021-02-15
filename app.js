@@ -10,7 +10,6 @@ require('./config/mongoose')
 const app = express()
 const PORT = process.env.PORT || 3000
 
-
 // Express-Handlebars
 app.set('view engine', 'handlebars')
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))

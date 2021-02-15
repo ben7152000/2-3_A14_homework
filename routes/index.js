@@ -21,10 +21,9 @@ router.get('/', (req, res) => {
   res.render('index')
 })
 
-
 router.post('/', async (req, res) => {
   const url = req.body.url
-  const devUrl = 'localhost:3000'
+  const baseUrl = process.env.NODE_ENV ? 'https://blooming-taiga-19733.herokuapp.com/' : 'localhost:3000'
   let newUrl
 
   // 比對網址格式是否正確 否則回傳錯誤
@@ -44,14 +43,14 @@ router.post('/', async (req, res) => {
     .then(result => {
       result.find(element => {
         if (url === element.originUrl) {
-          return newUrl = `${devUrl}/${element.path}`
+          return newUrl = `${baseUrl}/${element.path}`
         } else {
           const path = randomString(5)
           Url.create({
             originUrl: url,
             path
           })
-          return newUrl = `${devUrl}/${path}`
+          return newUrl = `${baseUrl}/${path}`
         }
       })
     })
