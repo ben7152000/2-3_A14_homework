@@ -64,7 +64,13 @@ router.post('/', checkUrl ,async (req, res) => {
         return newUrl = `${baseUrl}/${path}`
       }
     })
-    .then(() => res.render('url', { newUrl, url }))
+    .then(() => {
+      if (url.match(/^http:\/\/|https:\/\//)) {
+        res.render('url', { newUrl, url })
+      } else {
+        res.render('url', {newUrl, url: `http://${url}`})
+      }
+  })
     .catch(err => console.log(err))
 })
 
@@ -76,7 +82,11 @@ router.get('/:path', (req, res) => {
         res.render('error')
       } else {
         const originUrl = element[0].originUrl
-        res.redirect(originUrl)
+        if (originUrl.match(/^http:\/\/|https:\/\//)) {
+          res.redirect(originUrl)
+        } else {
+          res.redirect(`http://${originUrl}`)
+        }
       }
     })
     .catch(err => console.log(err))
