@@ -1,19 +1,18 @@
 // 複製按鈕
-function copyHandler (id) {
-  const url = document.querySelector(`#${id}`)
-  window.getSelection().selectAllChildren(url)
+document.querySelector('.copy').onclick = () => {
+  const link = document.querySelector('.link')
+  window.getSelection().selectAllChildren(link)
   document.execCommand("Copy")
   alert("複製成功")
 }
 
 // 檢查input
-let input = document.querySelector('.input')
-const btn = document.querySelector('.btn')
-
-btn.addEventListener('click', () => {
+document.querySelector('.btn').onclick = () => {
   const pattern = /^http:\/\/|https:\/\/|www\..{1,}\.com$/
+  let input = document.querySelector('.input')
   if (!input.value.match(pattern)) {
     alert(`網址格式錯誤 => ${input.value}`)
     input.value = ''
   }
-})
+}
+
