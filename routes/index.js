@@ -17,26 +17,31 @@ function randomString (length) {
   return string
 }
 
-router.get('/', (req, res) => {
-  res.render('index')
-})
-
-router.post('/', async (req, res) => {
+// 比對網址格式是否正確 否則回傳錯誤
+function checkUrl (req, res, next) {
   const url = req.body.url
-  const baseUrl = process.env.NODE_ENV ? 'https://blooming-taiga-19733.herokuapp.com' : 'localhost:3000'
-  let newUrl
-
-  // 比對網址格式是否正確 否則回傳錯誤
   const pattern = /^http:\/\/|https:\/\/|www\..{1,}\.com$/
   if (!url.match(pattern)) {
     console.log('網址輸入錯誤')
     res.render('index')
     return
   }
+  next()
+}
+
+router.get('/', (req, res) => {
+  res.render('index')
+})
+
+router.post('/', checkUrl ,async (req, res) => {
+  const url = req.body.url
+  const baseUrl = process.env.NODE_ENV ? 'https://blooming-taiga-19733.herokuapp.com' : 'localhost:3000'
+  let newUrl
 
   // 比對輸入的url是否在資料庫內
   // 有的話直接取出並在後方加密
   // 否則在資料庫建立新的url並在後方加密
+  // 如果亂碼相同 會在重新建立一組亂碼
   await Url.find()
     .lean()
     .exec()
@@ -45,7 +50,12 @@ router.post('/', async (req, res) => {
         if (url === element.originUrl) {
           return newUrl = `${baseUrl}/${element.path}`
         } else {
-          const path = randomString(5)
+          let path = randomString(5)
+          result.find(randomPath => {
+            if (path === randomPath) {
+              return path = randomString(5)
+            } 
+          })
           Url.create({
             originUrl: url,
             path
@@ -55,6 +65,20 @@ router.post('/', async (req, res) => {
       })
     })
     .then(() => res.render('url', { newUrl }))
+    .catch(err => console.log(err))
+})
+
+router.get('/:path', (req, res) => {
+  const path = req.params.path
+  Url.find({path})
+    .then(element => {
+      if (!element[0]) {
+        res.render('error')
+      } else {
+        const originUrl = element[0].originUrl
+        res.redirect(301, `${originUrl}`)
+      }
+    })
     .catch(err => console.log(err))
 })
 

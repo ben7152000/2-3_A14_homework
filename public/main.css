@@ -166,4 +166,34 @@ a {
   border: none;
   outline: none;
 }
+
+.error p {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin-bottom: 30px;
+}
+
+.error a {
+  display: inline-block;
+  width: 150px;
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  color: #000;
+  background-color: #ccc;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 40px;
+  letter-spacing: 1px;
+  -webkit-transition: background-color .5s ease-in-out, color .5s ease-in-out;
+  transition: background-color .5s ease-in-out, color .5s ease-in-out;
+  margin: auto 10px;
+}
+
+.error a:hover {
+  background-color: #74879C;
+  color: #fff;
+}
 /*# sourceMappingURL=main.css.map */
