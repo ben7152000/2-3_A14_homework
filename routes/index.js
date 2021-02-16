@@ -2,6 +2,9 @@ const express = require('express')
 const router = express.Router()
 const Url = require('../models/url')
 
+const baseUrl = process.env.NODE_ENV ? 'https://blooming-taiga-19733.herokuapp.com' : 'localhost:3000'
+let newUrl
+
 // 隨機產生字元
 function randomChar () {
   const n = Math.floor(Math.random () * 62)
@@ -33,38 +36,35 @@ router.get('/', (req, res) => {
   res.render('index')
 })
 
-router.post('/', checkUrl ,async (req, res) => {
-  const url = req.body.url
-  const baseUrl = process.env.NODE_ENV ? 'https://blooming-taiga-19733.herokuapp.com' : 'localhost:3000'
-  let newUrl
-
   // 比對輸入的url是否在資料庫內
   // 有的話直接取出並在後方加密
+  // 將取出的陣列放入arr陣列中
+  // 判斷arr陣列是否值
   // 否則在資料庫建立新的url並在後方加密
-  // 如果亂碼相同 會在重新建立一組亂碼
+router.post('/', checkUrl ,async (req, res) => {
+  const url = req.body.url
+  const arr = []
+
   await Url.find()
     .lean()
     .exec()
     .then(result => {
       result.find(element => {
-        if (url === element.originUrl) {
+        if (element.originUrl === url) {
+          arr.push(element)
           return newUrl = `${baseUrl}/${element.path}`
-        } else {
-          let path = randomString(5)
-          result.find(randomPath => {
-            if (path === randomPath) {
-              return path = randomString(5)
-            } 
-          })
-          Url.create({
-            originUrl: url,
-            path
-          })
-          return newUrl = `${baseUrl}/${path}`
         }
       })
+      if (arr[0] === undefined) {
+        const path = randomString(5)
+        Url.create({
+          originUrl: url,
+          path
+        })
+        return newUrl = `${baseUrl}/${path}`
+      }
     })
-    .then(() => res.render('url', { newUrl }))
+    .then(() => res.render('url', { newUrl, url }))
     .catch(err => console.log(err))
 })
 
@@ -76,7 +76,7 @@ router.get('/:path', (req, res) => {
         res.render('error')
       } else {
         const originUrl = element[0].originUrl
-        res.redirect(301, `${originUrl}`)
+        res.redirect(`http://${originUrl}`)
       }
     })
     .catch(err => console.log(err))

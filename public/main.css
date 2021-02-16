@@ -115,6 +115,7 @@ a {
   font-weight: 300;
   letter-spacing: .3px;
   margin: 10px auto;
+  color: blue;
 }
 
 .generate .link::after {
