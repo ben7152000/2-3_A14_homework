@@ -2,9 +2,6 @@ const express = require('express')
 const router = express.Router()
 const Url = require('../models/url')
 
-const baseUrl = process.env.NODE_ENV ? 'https://blooming-taiga-19733.herokuapp.com' : 'localhost:3000'
-let newUrl
-
 // 隨機產生字元
 function randomChar () {
   const n = Math.floor(Math.random () * 62)
@@ -12,6 +9,13 @@ function randomChar () {
   if(n < 36) return String.fromCharCode (n + 55) // 65 - 90 => A - Z
   return String.fromCharCode(n + 61) // 97 - 122 => a - z
 }
+
+// 另一種產生亂數方法
+// function randomChar () {
+//   const n = Math.floor(Math.random () * 62)
+//   const randomCharTable = ['0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ']
+//   return randomCharTable[n]
+// }
 
 // 隨機產生5個亂數 => 0 - 9, A - Z, a - z
 function randomString (length) { 
@@ -26,7 +30,7 @@ function checkUrl (req, res, next) {
   const pattern = /^http:\/\/|https:\/\/|www\..{1,}\.com$/
   if (!url.match(pattern)) {
     console.log('網址輸入錯誤')
-    res.render('index')
+    res.redirect('/')
     return
   }
   next()
@@ -43,7 +47,9 @@ router.get('/', (req, res) => {
   // 否則在資料庫建立新的url並在後方加密
 router.post('/', checkUrl ,async (req, res) => {
   const url = req.body.url
+  let newUrl
   const arr = []
+  const baseUrl = process.env.NODE_ENV ? 'https://blooming-taiga-19733.herokuapp.com' : 'localhost:3000'
 
   await Url.find()
     .lean()
@@ -71,7 +77,10 @@ router.post('/', checkUrl ,async (req, res) => {
         res.render('url', {newUrl, url: `http://${url}`})
       }
   })
-    .catch(err => console.log(err))
+    .catch(err => {
+      res.render('requestError')
+      console.log(err)
+    })
 })
 
 router.get('/:path', (req, res) => {
@@ -89,7 +98,10 @@ router.get('/:path', (req, res) => {
         }
       }
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      res.render('requestError')
+      console.log(err)
+    })
 })
 
 module.exports = router

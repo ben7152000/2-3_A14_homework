@@ -1,3 +1,12 @@
+// 檢查input
+document.querySelector('.generate').onclick = () => {
+  const pattern = /^http:\/\/|https:\/\/|www\..{1,}\.com$/
+  let input = document.querySelector('.input')
+  if (!input.value.match(pattern)) {
+    alert(`網頁格式錯誤    ===>    "${input.value}"`)
+  }
+}
+
 // 複製按鈕
 document.querySelector('.copy').onclick = () => {
   const link = document.querySelector('.link')
@@ -5,14 +14,3 @@ document.querySelector('.copy').onclick = () => {
   document.execCommand("Copy")
   alert("複製成功")
 }
-
-// 檢查input
-document.querySelector('.btn').onclick = () => {
-  const pattern = /^http:\/\/|https:\/\/|www\..{1,}\.com$/
-  let input = document.querySelector('.input')
-  if (!input.value.match(pattern)) {
-    alert(`網址格式錯誤 => ${input.value}`)
-    input.value = ''
-  }
-}
-
