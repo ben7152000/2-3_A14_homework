@@ -76,7 +76,7 @@ router.get('/:path', (req, res) => {
         res.render('error')
       } else {
         const originUrl = element[0].originUrl
-        res.redirect(`http://${originUrl}`)
+        res.redirect(originUrl)
       }
     })
     .catch(err => console.log(err))
